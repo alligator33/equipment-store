@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import type { Route } from "./+types/product";
+import type { Route } from "./+types/equipment-inventory";
 
 export function meta(_args: Route.MetaArgs) {
   return [
-    { title: "Products - React Router App" },
-    { name: "description", content: "Browse our products" },
+    { title: "Equipment Inventory - Professional Equipment Store" },
+    { name: "description", content: "Browse our equipment inventory" },
   ];
 }
 
@@ -56,7 +56,7 @@ export default function Product() {
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8", padding: "2rem" }}>
-      <h1>Products</h1>
+      <h1>Equipment Inventory</h1>
 
       <nav style={{ marginBottom: "2rem" }}>
         <a href="/" style={{ marginRight: "1rem" }}>Home</a>
@@ -75,7 +75,7 @@ export default function Product() {
               products.map((product) => (
                 <a 
                   key={product._id} 
-                  href={`/product/${product.slug}`}
+                  href={`/equipment-inventory/${product.slug}`}
                   style={{ 
                     border: "1px solid #ddd", 
                     borderRadius: "8px", 

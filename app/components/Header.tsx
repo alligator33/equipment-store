@@ -22,8 +22,8 @@ const menuData = [
     href: "/",
   },
   {
-    name: "Products",
-    href: "/products",
+    name: "Equipment Inventory",
+    href: "/equipment-inventory",
   },
   {
     name: "About",

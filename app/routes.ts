@@ -4,7 +4,7 @@ export default [
   index("routes/_index.tsx"),
   route("about", "routes/about.tsx"),
   route("contact", "routes/contact.tsx"),
-  route("product", "routes/product.tsx"),
-  route("product/:slug", "routes/product.$slug.tsx"),
+  route("equipment-inventory", "routes/equipment-inventory.tsx"),
+  route("equipment-inventory/:slug", "routes/equipment-inventory.$slug.tsx"),
   route("cart", "routes/cart.tsx"),
 ] satisfies RouteConfig;
