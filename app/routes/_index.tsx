@@ -3,8 +3,25 @@ import type { Route } from "./+types/_index";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Professional Equipment Store - Heavy Machinery & Construction Equipment" },
+    { name: "description", content: "Your trusted source for professional heavy machinery and construction equipment. Browse bulldozers, excavators, and more. Quality equipment with worldwide shipping and expert support." },
+    
+    // Open Graph tags
+    { property: "og:title", content: "Professional Equipment Store - Heavy Machinery & Construction Equipment" },
+    { property: "og:description", content: "Your trusted source for professional heavy machinery and construction equipment. Browse bulldozers, excavators, and more." },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://yoursite.com" },
+    
+    // Twitter Card tags
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: "Professional Equipment Store" },
+    { name: "twitter:description", content: "Your trusted source for professional heavy machinery and construction equipment." },
+    
+    // Additional SEO tags
+    { name: "keywords", content: "heavy machinery, construction equipment, bulldozers, excavators, professional equipment, equipment store, buy equipment, heavy equipment sales" },
+    { name: "robots", content: "index, follow" },
+    { name: "author", content: "Professional Equipment Store" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
   ];
 }
 

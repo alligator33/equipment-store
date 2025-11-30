@@ -26,6 +26,40 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  // Structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Professional Equipment Store",
+        "url": "https://yoursite.com",
+        "logo": "https://yoursite.com/logo.png",
+        "description": "Professional heavy machinery and construction equipment supplier",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Customer Service",
+          "email": "info@yoursite.com"
+        },
+        "sameAs": [
+          "https://facebook.com/yourpage",
+          "https://twitter.com/yourpage",
+          "https://linkedin.com/company/yourpage"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "name": "Professional Equipment Store",
+        "url": "https://yoursite.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://yoursite.com/equipment-inventory?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  };
+
   return (
     <html lang="en">
       <head>
@@ -33,6 +67,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {/* Structured Data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </head>
       <body>
         <Header />

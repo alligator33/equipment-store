@@ -2,11 +2,67 @@ import type { Route } from "./+types/equipment-inventory.$slug";
 import { useLoaderData } from "react-router";
 import ProductDetail from "../components/ProductDetail";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Product Detail" },
-    { name: "description", content: "View product details" },
-  ];
+export async function meta({ params }: Route.MetaArgs) {
+  const { slug } = params;
+  const apiUrl = import.meta.env.VITE_API_URL;
+  
+  try {
+    const url = `${apiUrl}/resource/products/one/${slug}`;
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      return [
+        { title: "Product Not Found - Equipment Store" },
+        { name: "description", content: "The requested product could not be found." },
+      ];
+    }
+    
+    const data = await response.json() as { data?: ApiProduct } | ApiProduct;
+    const apiProduct = 'data' in data ? data.data : data;
+    
+    if (!apiProduct) {
+      return [
+        { title: "Product Not Found - Equipment Store" },
+        { name: "description", content: "The requested product could not be found." },
+      ];
+    }
+    
+    const product = apiProduct as ApiProduct;
+    const description = product.description 
+      ? product.description.replace(/<[^>]*>/g, '').substring(0, 160) 
+      : `Buy ${product.name} for $${product.price.toLocaleString()}. Professional equipment store.`;
+    const imageUrl = product.images?.[0]?.url || '';
+    
+    return [
+      { title: `${product.name} - Equipment Store` },
+      { name: "description", content: description },
+      
+      // Open Graph tags for social media sharing
+      { property: "og:title", content: `${product.name} - Equipment Store` },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "product" },
+      { property: "og:image", content: imageUrl },
+      { property: "og:url", content: `https://yoursite.com/equipment-inventory/${slug}` },
+      { property: "product:price:amount", content: product.price.toString() },
+      { property: "product:price:currency", content: "USD" },
+      
+      // Twitter Card tags
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: `${product.name} - Equipment Store` },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: imageUrl },
+      
+      // Additional SEO tags
+      { name: "keywords", content: `${product.name}, equipment, ${slug}, buy equipment, professional equipment` },
+      { name: "robots", content: "index, follow" },
+    ];
+  } catch (error) {
+    console.error('Error fetching product for meta:', error);
+    return [
+      { title: "Equipment Store" },
+      { name: "description", content: "Professional equipment store" },
+    ];
+  }
 }
 
 interface ApiProduct {

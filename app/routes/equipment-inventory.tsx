@@ -4,7 +4,22 @@ import type { Route } from "./+types/equipment-inventory";
 export function meta(_args: Route.MetaArgs) {
   return [
     { title: "Equipment Inventory - Professional Equipment Store" },
-    { name: "description", content: "Browse our equipment inventory" },
+    { name: "description", content: "Browse our extensive inventory of professional equipment including bulldozers, excavators, and heavy machinery. Quality equipment at competitive prices with worldwide shipping." },
+    
+    // Open Graph tags
+    { property: "og:title", content: "Equipment Inventory - Professional Equipment Store" },
+    { property: "og:description", content: "Browse our extensive inventory of professional equipment including bulldozers, excavators, and heavy machinery." },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://yoursite.com/equipment-inventory" },
+    
+    // Twitter Card tags
+    { name: "twitter:card", content: "summary" },
+    { name: "twitter:title", content: "Equipment Inventory - Professional Equipment Store" },
+    { name: "twitter:description", content: "Browse our extensive inventory of professional equipment including bulldozers, excavators, and heavy machinery." },
+    
+    // Additional SEO tags
+    { name: "keywords", content: "equipment inventory, heavy machinery, bulldozers, excavators, construction equipment, professional equipment, buy equipment" },
+    { name: "robots", content: "index, follow" },
   ];
 }
 
@@ -40,9 +55,9 @@ export default function Product() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data = await response.json() as { data?: Product[] } | Product[];
         console.log('API Response:', data);
-        setProducts(data.data || []);
+        setProducts(Array.isArray(data) ? data : (data.data || []));
         setError(null);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to fetch products");
